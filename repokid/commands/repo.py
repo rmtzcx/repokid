@@ -45,7 +45,7 @@ from repokid.utils.roledata import partial_update_role_data
 from tabulate import tabulate
 
 
-def repo_role(
+def _repo_role(
     account_number,
     role_name,
     dynamo_table,
@@ -218,7 +218,7 @@ def repo_role(
     return errors
 
 
-def rollback_role(
+def _rollback_role(
     account_number, role_name, dynamo_table, config, hooks, selection=None, commit=None
 ):
     """
@@ -363,7 +363,7 @@ def rollback_role(
     return errors
 
 
-def repo_all_roles(
+def _repo_all_roles(
     account_number, dynamo_table, config, hooks, commit=False, scheduled=True
 ):
     """
@@ -418,7 +418,7 @@ def repo_all_roles(
     )
 
     for role in roles:
-        error = repo_role(
+        error = _repo_role(
             account_number,
             role.role_name,
             dynamo_table,
@@ -438,7 +438,7 @@ def repo_all_roles(
         LOGGER.info("Successfully repoed roles in account {}".format(account_number))
 
 
-def repo_stats(output_file, dynamo_table, account_number=None):
+def _repo_stats(output_file, dynamo_table, account_number=None):
     """
     Create a csv file with stats about roles, total permissions, and applicable filters over time
 

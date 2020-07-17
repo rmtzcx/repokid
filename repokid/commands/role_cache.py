@@ -21,7 +21,7 @@ from repokid.utils.dynamo import set_role_data
 from tqdm import tqdm
 
 
-def update_role_cache(account_number, dynamo_table, config, hooks):
+def _update_role_cache(account_number, dynamo_table, config, hooks):
     """
     Update data about all roles in a given account:
       1) list all the roles and initiate a role object with basic data including name and roleID
