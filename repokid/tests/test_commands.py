@@ -696,7 +696,7 @@ class TestRepokidCLI(object):
 
         policy_names = ["policy1", "policy2"]
         repoed_policies = [ROLE_POLICIES]
-        repokid.utils.logging.log_deleted_and_repoed_policies(
+        repokid.utils.iam.log_deleted_and_repoed_policies(
             policy_names, repoed_policies, "MyRoleName", "123456789012"
         )
         assert len(mock_logger.messages["info"]) == 3

@@ -25,7 +25,6 @@ from cloudaux.aws.iam import (
 from repokid import LOGGER
 from repokid.utils import roledata as roledata
 from repokid.utils.dynamo import set_role_data
-from repokid.utils.logging import log_deleted_and_repoed_policies
 from repokid.utils.roledata import partial_update_role_data
 
 MAX_AWS_POLICY_SIZE = 10240
@@ -210,3 +209,34 @@ def remove_permissions_from_role(
             permissions=permissions, role=role.role_name, account_number=account_number
         )
     )
+
+
+def log_deleted_and_repoed_policies(
+    deleted_policy_names, repoed_policies, role_name, account_number
+):
+    """Logs data on policies that would otherwise be modified or deleted if the commit flag were set.
+
+    Args:
+        deleted_policy_names (list<string>)
+        repoed_policies (list<dict>)
+        role_name (string)
+        account_number (string)
+
+    Returns:
+        None
+    """
+    for name in deleted_policy_names:
+        LOGGER.info(
+            "Would delete policy from {} with name {} in account {}".format(
+                role_name, name, account_number
+            )
+        )
+
+    if repoed_policies:
+        LOGGER.info(
+            "Would replace policies for role {} with: \n{} in account {}".format(
+                role_name,
+                json.dumps(repoed_policies, indent=2, sort_keys=True),
+                account_number,
+            )
+        )

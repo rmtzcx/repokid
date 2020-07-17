@@ -37,10 +37,10 @@ from repokid.utils.dynamo import (
 from repokid.utils.iam import (
     delete_policy,
     inline_policies_size_exceeds_maximum,
+    log_deleted_and_repoed_policies,
     replace_policies,
     update_repoed_description,
 )
-from repokid.utils.logging import log_deleted_and_repoed_policies
 from repokid.utils.roledata import partial_update_role_data
 from tabulate import tabulate
 
